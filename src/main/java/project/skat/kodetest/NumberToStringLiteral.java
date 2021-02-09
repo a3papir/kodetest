@@ -49,12 +49,12 @@ public class NumberToStringLiteral {
             throw new IllegalArgumentException("The application accept input with up to 2 decimals.");
         }
 
-        //p ad with "0"
+        // pad with "0"
         String mask = "000000.00";
         DecimalFormat df = new DecimalFormat(mask);
         String snumber = df.format(number);
 
-        //separating whole numbers and decimals
+        // separating whole numbers and decimals
         int wholeNumbers = Integer.parseInt(snumber.substring(0, 6));
         int decimals = Integer.parseInt(snumber.substring(7, 9));
 
