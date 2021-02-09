@@ -6,7 +6,7 @@ Build a new .jar file with
 ```mvn clean install```
 
 Then create a docker image
-```docker build -f Dockerfile -t kodetest```
+```docker build -f Dockerfile -t kodetest .```
 
 Now just run the application
 ```docker run -p 9000:9000 kodetest```
