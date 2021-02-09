@@ -38,44 +38,23 @@ public class NumberToStringLiteral {
             " NINETY "
     };
 
-    private NumberToStringLiteral() {}
-
-
-    private static String convertLessThanOneThousand(int number) {
-        String soFar;
-
-        if (number % 100 < 20){
-            soFar = numNames[number % 100];
-            number /= 100;
-        }
-        else {
-            soFar = numNames[number % 10];
-            number /= 10;
-
-            soFar = tensNames[number % 10] + soFar;
-            number /= 10;
-        }
-        if (number == 0) {
-            return soFar;
-        }
-        if (!(soFar.equals(""))){
-            return numNames[number] + " HUNDRED AND " + soFar;
-        }
-        return numNames[number] + " HUNDRED " + soFar;
-    }
-
     public static String convert(double number) {
-        // 0 to 999999.99
+        // only 0 to 999999.99
         if (number > 999999.99 || number < 0){
-            throw new IndexOutOfBoundsException("The number " + number + " is out of bounds!");
+            throw new IndexOutOfBoundsException("The application accept input from 0 and up to 999999.99");
         }
 
-        // pad with "0"
+        // only two decimals
+        if (!(hasMaximumTwoDecimals(number))){
+            throw new IllegalArgumentException("The application accept input with up to 2 decimals.");
+        }
+
+        //p ad with "0"
         String mask = "000000.00";
         DecimalFormat df = new DecimalFormat(mask);
         String snumber = df.format(number);
 
-        // seperating whole numbers and decimals
+        //separating whole numbers and decimals
         int wholeNumbers = Integer.parseInt(snumber.substring(0, 6));
         int decimals = Integer.parseInt(snumber.substring(7, 9));
 
@@ -92,11 +71,6 @@ public class NumberToStringLiteral {
                 return convertWholeNumbers(wholeNumbers) + "DOLLARS AND " + convertDecimals(decimals) + "CENTS";
             }
         }
-    }
-
-    private static String convertDecimals(int decimals) {
-        String decimalsliteral = convertLessThanOneThousand(decimals);
-        return removeExtraSpaces(decimalsliteral);
     }
 
     public static String convertWholeNumbers(int number) {
@@ -140,9 +114,45 @@ public class NumberToStringLiteral {
         return removeExtraSpaces(result);
     }
 
+    private static String convertLessThanOneThousand(int number) {
+        String soFar;
+
+        if (number % 100 < 20){
+            soFar = numNames[number % 100];
+            number /= 100;
+        }
+        else {
+            soFar = numNames[number % 10];
+            number /= 10;
+
+            soFar = tensNames[number % 10] + soFar;
+            number /= 10;
+        }
+        if (number == 0) {
+            return soFar;
+        }
+        if (!(soFar.equals(""))){
+            return numNames[number] + " HUNDRED AND " + soFar;
+        }
+        return numNames[number] + " HUNDRED " + soFar;
+    }
+
+    private static String convertDecimals(int decimals) {
+        String decimalsliteral = convertLessThanOneThousand(decimals);
+        return removeExtraSpaces(decimalsliteral);
+    }
+
     private static String removeExtraSpaces(String number){
         // remove extra spaces!
         return number.replaceAll("^\\s+", "").replaceAll("\\b\\s{2,}\\b", " ");
+    }
+
+    private static boolean hasMaximumTwoDecimals(Double number){
+        String[] splitter = number.toString().split("\\.");
+        if (splitter[1].length() > 2){
+            return false;
+        }
+        return true;
     }
 }
 

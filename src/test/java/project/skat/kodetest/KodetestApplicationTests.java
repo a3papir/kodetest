@@ -54,7 +54,7 @@ class KodetestApplicationTests {
 			NumberToStringLiteral.convert(-1.0);
 		});
 
-		String expectedMessage = "The number -1.0 is out of bounds!";
+		String expectedMessage = "The application accept input from 0 and up to 999999.99";
 		String actualMessage = exception.getMessage();
 
 		assertEquals(actualMessage,expectedMessage);
@@ -66,7 +66,19 @@ class KodetestApplicationTests {
 			NumberToStringLiteral.convert(1000000.0);
 		});
 
-		String expectedMessage = "The number 1000000.0 is out of bounds!";
+		String expectedMessage = "The application accept input from 0 and up to 999999.99";
+		String actualMessage = exception.getMessage();
+
+		assertEquals(expectedMessage,actualMessage);
+	}
+
+	@Test
+	void testAcceptTwoDecimals() {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+			NumberToStringLiteral.convert(1.111);
+		});
+
+		String expectedMessage = "The application accept input with up to 2 decimals.";
 		String actualMessage = exception.getMessage();
 
 		assertEquals(expectedMessage,actualMessage);
