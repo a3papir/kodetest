@@ -11,7 +11,7 @@ Then create a docker image
 ## Or just pull it from Docker Hub
 ```docker pull ayanle3000/kodetest```
 
-## Building the application
+## Running the application
 ```docker run -p 9000:9000 kodetest```
 or
 ```docker run -p 9000:9000 ayanle3000/kodetest```
