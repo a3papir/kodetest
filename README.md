@@ -1,7 +1,7 @@
 # kodetest
 Implemented an application which can format numerical inputs to written text.
 
-## Build the application
+### Build the application
 Build a new .jar file with 
 ```mvn clean install```
 
